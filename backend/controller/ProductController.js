@@ -1,6 +1,7 @@
 const Product = require("../models/ProductModel");
 const ErrorHandler = require("../utils/ErrorHandler");
 const catchAsyncErrors = require("../middleware/catchAsyncError");
+const Features = require("../utils/Features");
 
 //CREATE PRODUCT -- ADMIN
 module.exports.createProduct = catchAsyncErrors(async (req, res, next) => {
@@ -13,30 +14,43 @@ module.exports.createProduct = catchAsyncErrors(async (req, res, next) => {
 
 //GET PRODUCTS
 module.exports.getAllProducts = catchAsyncErrors(async (req, res, next) => {
-  let products = await Product.find();
+  const resultPerPage = 10;
+  const productCount = await Product.countDocuments();
+
+  const feature = new Features(Product.find(), req.query)
+    .search()
+    .filter()
+    .pagination(resultPerPage);
+
+  let products = await feature.query;
   if (products.length === 0) {
     return next(new ErrorHandler("There are no Products to show", 404));
   }
+
   res.status(200).json({
     success: true,
     products,
+    resultPerPage,
   });
 });
 
 // UPDATE PRODUCT ---ADMIN
 module.exports.updateProduct = async (req, res, next) => {
   let product;
+  try {
+    product = await Product.findById(req.params.id);
+    if (!product) {
+      return next(new ErrorHandler("Product is not Found with this id ", 404));
+    }
 
-  product = await Product.findById(req.params.id);
-  if (!product) {
+    product = await Product.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true,
+      useUnified: false,
+    });
+  } catch (error) {
     return next(new ErrorHandler("Product is not Found with this id ", 404));
   }
-  product = await Product.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-    runValidators: true,
-    useUnified: false,
-  });
-
   res.status(200).json({
     success: true,
     product,
