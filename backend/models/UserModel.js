@@ -52,27 +52,16 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
+//Comparing password
+userSchema.methods.comparePassword = function (password) {
+  return bcrypt.compare(password, this.password);
+};
+
 //jwt token
 userSchema.methods.getJwtToken = function () {
   return jwt.sign({ id: this._id }, process.env.JWT_SECRET_KEY, {
     expiresIn: process.env.JWT_EXPIRES,
   });
 };
-
-// //Forgot Password
-// userSchema.methods.getResetToken = function () {
-//   //Generating Token
-//   const resetToken = crypto.randomBytes(20).toString("hex");
-
-//   //hashing and adding resetPasswordToken
-//   this.resetPasswordToken = crypto
-//     .createHash("sha256")
-//     .update(resetToken)
-//     .digest("hex");
-
-//   this.resetPasswordTime = Date.now() + 15 * 60 * 1000;
-
-//   return resetToken;
-// };
 
 module.exports = mongoose.model("User", userSchema);

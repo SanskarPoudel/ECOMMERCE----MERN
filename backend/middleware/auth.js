@@ -19,7 +19,7 @@ module.exports.isAuthenticatedUser = catchAsyncError(async (req, res, next) => {
 //ADMIN ROLE
 module.exports.authorizeRoles = (...roles) => {
   return (req, res, next) => {
-    if (!roles.includes(req.user.roles)) {
+    if (!roles.includes(req.user.role)) {
       return next(
         new ErroHandler(`${req.user.role} cannot access this resources`),
         401
