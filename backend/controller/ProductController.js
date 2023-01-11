@@ -92,3 +92,5 @@ module.exports.getSingleProduct = async (req, res, next) => {
     product,
   });
 };
+
+//REVIEW PRODUCT REMAINING
