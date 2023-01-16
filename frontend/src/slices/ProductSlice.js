@@ -7,7 +7,7 @@ const initialState = {
   error: "",
 };
 
-export const fetchProducts = createAsyncThunk("product/fetchProducts", () => {
+export const fetchProducts = createAsyncThunk("products/fetchProducts", () => {
   return axios
     .get("http://localhost:8000/api/v1/products")
     .then((response) => response.data);
@@ -15,18 +15,33 @@ export const fetchProducts = createAsyncThunk("product/fetchProducts", () => {
 
 const productSlice = createSlice({
   name: "product",
+
   initialState,
-  extraReducers: {
-    [fetchProducts.pending]: (state) => {
+
+  extraReducers: (builder) => {
+    builder.addCase(fetchProducts.pending, (state) => {
       state.loading = true;
-    },
-    [fetchProducts.fulfilled]: (state, action) => {
+    });
+    builder.addCase(fetchProducts.fulfilled, (state, action) => {
       state.loading = false;
       state.products = action.payload.products;
-    },
-    [fetchProducts.rejected]: (state, action) => {
+    });
+    builder.addCase(fetchProducts.rejected, (state, action) => {
+      state.loading = false;
       state.error = action.error.message;
-    },
+    });
+    // {
+    //   [fetchProducts.pending]: (state) => {
+    //     state.loading = true;
+    //   },
+    //   [fetchProducts.fulfilled]: (state, action) => {
+    //     state.loading = false;
+    //     state.products = action.payload.products;
+    //   },
+    //   [fetchProducts.rejected]: (state, action) => {
+    //     state.error = action.error.message;
+    //   },
+    // },
   },
 });
 
