@@ -27,6 +27,7 @@ module.exports.createUser = catchAsyncError(async (req, res, next) => {
 module.exports.loginUser = catchAsyncError(async (req, res, next) => {
   const { email, password } = req.body;
 
+  console.log(password);
   if (!email || !password) {
     return next(new ErrorHandler("Please enter email and password", 400));
   }
@@ -38,6 +39,8 @@ module.exports.loginUser = catchAsyncError(async (req, res, next) => {
   }
 
   const passCheck = await bcrypt.compare(password, user.password);
+
+  console.log(passCheck);
 
   if (!passCheck) {
     return next(new ErrorHandler("Invalid email or password", 400));
@@ -126,7 +129,7 @@ module.exports.resetPassword = catchAsyncError(async (req, res, next) => {
 //GET USER DETAILS
 
 module.exports.userDetails = catchAsyncError(async (req, res, next) => {
-  const user = await User.findById(req.user.id);
+  const user = await User.findById(req.user._id);
   res.status(200).json({
     success: true,
     user,

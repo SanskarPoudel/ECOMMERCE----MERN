@@ -2,8 +2,16 @@ import React, { useRef } from "react";
 import "./Header.css";
 import { Link } from "react-router-dom";
 import logo from "../../assets/logo.png";
+import { fetchLogOut } from "../../slices/AuthSlice";
+import { useDispatch } from "react-redux";
 
 const Header = () => {
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(fetchLogOut());
+  };
+
   return (
     <div className="Header">
       <div className="Header__topbar space__beetween">
@@ -14,8 +22,8 @@ const Header = () => {
               alt=""
               className="logo"
               style={{
-                width: "200px",
-                height: "150px",
+                width: "150px",
+                height: "100px",
                 objectFit: "contain",
                 cursor: "pointer",
               }}
@@ -132,6 +140,7 @@ const Header = () => {
         </div>
 
         <div className="rightOption flex align__items__center">
+          <div onClick={handleLogout}>Logout</div>
           <div>
             <Link to="/search">
               <svg

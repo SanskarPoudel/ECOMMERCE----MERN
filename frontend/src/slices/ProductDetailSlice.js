@@ -29,8 +29,10 @@ const productDetailSlice = createSlice({
       state.productDetail = action.payload.product;
       state.loading = false;
     });
+
     builder.addCase(fetchProductDetail.rejected, (state, action) => {
-      state.error = action.error.message;
+      state.loading = false;
+      state.error = action.payload;
     });
   },
 });

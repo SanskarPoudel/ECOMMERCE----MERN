@@ -20,8 +20,6 @@ const Home = () => {
 
   const products = product.products;
 
-  console.log(products);
-
   return (
     <div>
       {/* <Header /> */}
