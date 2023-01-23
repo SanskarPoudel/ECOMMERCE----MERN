@@ -1,0 +1,117 @@
+* {
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+}
+
+a {
+  text-decoration: none;
+}
+
+body {
+  font-family: "Barlow", sans-serif !important ;
+}
+
+h1,
+h2 {
+  font-family: "Lobster", cursive !important;
+}
+
+.headertop {
+  background-color: #212121;
+  padding: 5px;
+  font-size: 14px;
+}
+
+.headertop a {
+  color: white;
+}
+
+.top-left {
+  display: flex;
+  margin: 0px;
+  align-items: center;
+  height: 100%;
+}
+
+.top-left a {
+  color: white;
+  margin: 0 10px;
+}
+
+.top-right {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.top-right-text {
+  color: white;
+}
+
+.socialIcon {
+  margin-left: 15px;
+}
+
+.socialIcon a {
+  color: white;
+  margin: 5px;
+  font-size: 18px;
+}
+
+.headerNav li.nav-item .nav-link {
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0 10px;
+}
+
+.headerNav a.navbar-brand {
+  color: white;
+  font-family: "Lobster", cursive !important;
+  font-size: 2.5rem;
+}
+
+.headerNav {
+  padding: 20px 0;
+  background-color: #f9a825;
+}
+
+.searchForm {
+  width: 50%;
+}
+
+.rightSide {
+  margin-left: 3rem;
+}
+
+.rightSide a {
+  display: inline-block;
+  color: white;
+  margin: 0 10px;
+
+  font-size: 1.7rem;
+}
+
+.userName {
+  font-size: 1rem;
+  text-transform: capitalize;
+  color: #f9a825;
+  font-weight: 800;
+}
+
+@media only screen and (max-width: 992px) {
+  .top-right {
+    display: flex;
+    justify-content: center;
+  }
+  .top-left {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.logout :hover {
+  cursor: pointer;
+  margin-top: 10px;
+}
