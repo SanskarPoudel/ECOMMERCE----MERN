@@ -14,7 +14,7 @@ const Home = ({ history }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchProducts({ keyword: "", currentPage: 1, category: "" }));
+    dispatch(fetchProducts({ keyword: "", currentPage: "", category: "" }));
   }, []);
 
   const products = product.products;

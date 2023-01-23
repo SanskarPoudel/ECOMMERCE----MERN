@@ -61,7 +61,7 @@ const productShema = new mongoose.Schema({
       user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
-        required: true,
+        // required: true,
       },
       name: {
         type: String,
@@ -83,7 +83,7 @@ const productShema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
-    required: true,
+    // required: true,
   },
   createAt: {
     type: Date,

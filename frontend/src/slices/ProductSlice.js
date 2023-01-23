@@ -5,8 +5,6 @@ const initialState = {
   loading: false,
   products: [],
   error: "",
-  productsCount: "",
-  resultPerPage: "",
 };
 
 export const fetchProducts = createAsyncThunk(
@@ -14,7 +12,11 @@ export const fetchProducts = createAsyncThunk(
   ({ keyword, currentPage, category }) => {
     let link = `http://localhost:8000/api/v1/products`;
     keyword &&
-      currentPage &&
+      (link = `http://localhost:8000/api/v1/products?keyword=${
+        keyword ? keyword : ""
+      }&page=${currentPage}`);
+
+    currentPage &&
       (link = `http://localhost:8000/api/v1/products?keyword=${
         keyword ? keyword : ""
       }&page=${currentPage}`);
@@ -37,6 +39,8 @@ const productSlice = createSlice({
     builder.addCase(fetchProducts.fulfilled, (state, action) => {
       state.loading = false;
       state.products = action.payload.products;
+      console.log(action.payload);
+      state.productCount = action.payload.productCount;
       state.resultPerPage = action.payload.resultPerPage;
     });
     builder.addCase(fetchProducts.rejected, (state, action) => {

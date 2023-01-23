@@ -21,17 +21,22 @@ const Products = () => {
 
   const [category, setCategory] = useState("");
 
-  const { products, loading, error, resultPerPage } = useSelector(
+  const { products, loading, error, productCount, resultPerPage } = useSelector(
     (state) => state.product
   );
 
   const { keyword } = useParams();
+
+  const setCurrentPageNo = (event, value) => {
+    setCurrentPage(value);
+  };
 
   const details = {
     category,
     keyword,
     currentPage,
   };
+
   useEffect(() => {
     dispatch(fetchProducts(details));
   }, [dispatch, keyword, currentPage, category]);
@@ -138,8 +143,9 @@ const Products = () => {
                 margin: "6vmax",
               }}
             >
-              {/* <Pagination
-                activePage={currentPage}
+              <Pagination
+                count={Math.ceil(productCount / resultPerPage)}
+                page={currentPage}
                 itemsCountPerPage={resultPerPage}
                 // totalItemsCount={productsCount}
                 onChange={setCurrentPageNo}
@@ -149,9 +155,9 @@ const Products = () => {
                 lastPageText="Last"
                 itemClass="page-item"
                 linkClass="page-link"
-                activeClass="pageItemActive"
+                cls="pageItemActive"
                 activeLinkClass="pageLinkActive"
-              /> */}
+              />
             </div>
           </div>
         </>
