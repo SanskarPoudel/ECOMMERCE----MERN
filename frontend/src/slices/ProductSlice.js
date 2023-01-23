@@ -5,13 +5,25 @@ const initialState = {
   loading: false,
   products: [],
   error: "",
+  productsCount: "",
+  resultPerPage: "",
 };
 
-export const fetchProducts = createAsyncThunk("products/fetchProducts", () => {
-  return axios
-    .get("http://localhost:8000/api/v1/products")
-    .then((response) => response.data);
-});
+export const fetchProducts = createAsyncThunk(
+  "products/fetchProducts",
+  ({ keyword, currentPage, category }) => {
+    let link = `http://localhost:8000/api/v1/products`;
+    keyword &&
+      currentPage &&
+      (link = `http://localhost:8000/api/v1/products?keyword=${
+        keyword ? keyword : ""
+      }&page=${currentPage}`);
+
+    category.length >= 2 &&
+      (link = `http://localhost:8000/api/v1/products?category=${category}`);
+    return axios.get(link).then((response) => response.data);
+  }
+);
 
 const productSlice = createSlice({
   name: "product",
@@ -25,23 +37,12 @@ const productSlice = createSlice({
     builder.addCase(fetchProducts.fulfilled, (state, action) => {
       state.loading = false;
       state.products = action.payload.products;
+      state.resultPerPage = action.payload.resultPerPage;
     });
     builder.addCase(fetchProducts.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload;
     });
-    // {
-    //   [fetchProducts.pending]: (state) => {
-    //     state.loading = true;
-    //   },
-    //   [fetchProducts.fulfilled]: (state, action) => {
-    //     state.loading = false;
-    //     state.products = action.payload.products;
-    //   },
-    //   [fetchProducts.rejected]: (state, action) => {
-    //     state.error = action.error.message;
-    //   },
-    // },
   },
 });
 

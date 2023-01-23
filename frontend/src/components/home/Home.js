@@ -9,16 +9,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "../../slices/ProductSlice";
 import ProductCard from "../product/ProductCard";
 
-const Home = () => {
+const Home = ({ history }) => {
   const product = useSelector((state) => state.product);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchProducts());
+    dispatch(fetchProducts({ keyword: "", currentPage: 1, category: "" }));
   }, []);
 
   const products = product.products;
-
+  console.log(products);
   return (
     <div>
       {/* <Header /> */}
