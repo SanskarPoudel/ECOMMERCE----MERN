@@ -5,6 +5,7 @@ const bcrypt = require("bcryptjs");
 const sendToken = require("../utils/jwtToken");
 const sendMail = require("../utils/sendMail.js");
 const randomstring = require("randomstring");
+const Product = require("../models/ProductModel");
 
 //REGISTER USER
 module.exports.createUser = catchAsyncError(async (req, res, next) => {
@@ -241,5 +242,60 @@ module.exports.deleteUser = catchAsyncError(async (req, res, next) => {
   res.status(200).json({
     success: true,
     message: "User Deleted Successfully",
+  });
+});
+
+//ADD TO CART
+module.exports.addtoCart = catchAsyncError(async (req, res) => {
+  const user = await User.findById(req.user._id);
+
+  const product = await Product.findById(req.body.productId);
+
+  console.log(product);
+  if (user.cart.includes(product._id)) {
+    return res.status(400).json({
+      message: "Product is already in cart",
+    });
+  }
+
+  user.cart.push(product._id);
+  console.log(user.cart);
+  await user.save();
+  res.status(200).json({
+    message: "Product added to cart",
+  });
+});
+
+//GET CART
+module.exports.getCart = catchAsyncError(async (req, res, next) => {
+  const user = await User.findById(req.user._id)
+    .populate("cart")
+    .select("cart");
+
+  console.log(user);
+  if (!user) {
+    return next(new ErrorHandler("User not found", 400));
+  }
+
+  res.status(200).json({
+    cart: user.cart,
+  });
+});
+
+//REMOVE PRODUCT FROM CART
+module.exports.removeFromCart = catchAsyncError(async (req, res, next) => {
+  const user = await User.findById(req.user._id);
+
+  const productIndex = user.cart.indexOf(req.params.productId);
+
+  if (productIndex === -1) {
+    return next(new ErrorHandler("Product not found in cart", 400));
+  }
+
+  user.cart.splice(productIndex, 1);
+  await user.save();
+
+  res.status(200).json({
+    message: "Product removed from cart",
   });
 });

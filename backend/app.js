@@ -11,6 +11,7 @@ app.use(express.json());
 app.use(express.urlencoded());
 app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 app.use(cookieParser());
+app.use("/Images", express.static("Images"));
 
 app.use("/api/v1", productRoute);
 app.use("/api/v1", userRoute);

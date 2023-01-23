@@ -31,18 +31,10 @@ const productShema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
-  images: [
-    {
-      public_id: {
-        type: String,
-        required: true,
-      },
-      url: {
-        type: String,
-        required: true,
-      },
-    },
-  ],
+  image: {
+    data: String,
+    contentType: String,
+  },
   category: {
     type: String,
     required: [true, "Please add a category of your product"],
@@ -61,7 +53,7 @@ const productShema = new mongoose.Schema({
       user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
-        // required: true,
+        required: true,
       },
       name: {
         type: String,
@@ -76,7 +68,7 @@ const productShema = new mongoose.Schema({
       },
       time: {
         type: Date,
-        default: Date.now,
+        default: Date.now(),
       },
     },
   ],

@@ -15,6 +15,23 @@ const { isAuthenticatedUser, authorizeRoles } = require("../middleware/auth");
 
 const router = express.Router();
 
+const multer = require("multer");
+const path = require("path");
+
+//Storage Multer
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "Images");
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname));
+  },
+});
+
+const upload = multer({
+  storage: storage,
+});
+
 router.get("/products", getAllProducts);
 
 router.get("/products/:id", getSingleProduct);
@@ -23,6 +40,7 @@ router.post(
   "/products/new",
   isAuthenticatedUser,
   authorizeRoles("admin"),
+  upload.single("image"),
   createProduct
 );
 
@@ -40,6 +58,6 @@ router.delete(
   deleteProduct
 );
 
-// router.post("/product/review", isAuthenticatedUser, createReview);
+router.post("/product/review", isAuthenticatedUser, createReview);
 
 module.exports = router;

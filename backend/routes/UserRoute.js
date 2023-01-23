@@ -12,6 +12,9 @@ const {
   getSingleUser,
   updateUserRole,
   deleteUser,
+  addtoCart,
+  getCart,
+  removeFromCart,
 } = require("../controller/UserController");
 const { isAuthenticatedUser, authorizeRoles } = require("../middleware/auth");
 
@@ -51,6 +54,16 @@ router.delete(
   isAuthenticatedUser,
   authorizeRoles("admin"),
   deleteUser
+);
+
+router.post("/addToCart", isAuthenticatedUser, addtoCart);
+
+router.get("/getCart", isAuthenticatedUser, getCart);
+
+router.delete(
+  "/removeFromCart/:productId",
+  isAuthenticatedUser,
+  removeFromCart
 );
 
 module.exports = router;
