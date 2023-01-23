@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { fetchLogOut } from "../../slices/AuthSlice";
 import "./Header.css";
+import logo from "../../assets/logo.png";
 
 const Header = () => {
   const { loading, isAuthenticated, user, error } = useSelector(
@@ -72,8 +73,14 @@ const Header = () => {
         </section>
         <nav className="navbar navbar-expand-lg headerNav">
           <div className="container">
-            <Link className="navbar-brand" to="/">
-              Click & Collect
+            <Link className="navbar-brand logo" to="/">
+              <img
+                src={logo}
+                style={{
+                  width: "150px",
+                }}
+                alt="logo"
+              />
             </Link>
             <button
               className="navbar-toggler"
@@ -103,7 +110,23 @@ const Header = () => {
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link" to="0">
-                    Category
+                    About
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="0">
+                    Offers
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="0">
+                    Sell
+                  </Link>
+                </li>
+
+                <li className="nav-item">
+                  <Link className="nav-link" to="0">
+                    Contact
                   </Link>
                 </li>
                 {/* <li className="nav-item dropdown">

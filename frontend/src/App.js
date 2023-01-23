@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchUserDetails } from "./slices/UserSlice";
 import { authenticatedStatusUpdate } from "./slices/AuthSlice";
 import Products from "./components/product/Products";
+import Support from "./more/Support";
 
 function App() {
   const dispatch = useDispatch();
@@ -40,6 +41,7 @@ function App() {
           <Route path="/header1" element={<Header1 />} />
           <Route path="/products" element={<Products />} />
           <Route path="/products/:keyword" element={<Products />} />
+          <Route path="/support" element={<Support />} />
         </Routes>
         <Footer />
       </Router>

@@ -113,5 +113,10 @@ h2 {
 
 .logout :hover {
   cursor: pointer;
-  margin-top: 10px;
+}
+
+.logo {
+  margin: 0;
+  margin-top: -0.8rem;
+  margin-right: 0.9rem;
 }

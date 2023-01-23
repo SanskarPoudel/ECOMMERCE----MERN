@@ -4,20 +4,26 @@ import Carousel from "react-material-ui-carousel";
 import { Rating } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProductDetail } from "../../slices/ProductDetailSlice";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "./ProductDetails.css";
 import { AiFillHeart } from "react-icons/ai";
+import { fetchAddCart } from "../../slices/CartSlice";
 
 const ProductDetails = () => {
   const { loading, productDetail, error } = useSelector(
     (state) => state.productDetail
   );
 
+  const { isAuthenticated, user } = useSelector((state) => state.userAuth);
+
+  const navigate = useNavigate();
+
   const product = productDetail;
 
   const { id } = useParams();
 
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(fetchProductDetail(id));
   }, []);
@@ -48,6 +54,12 @@ const ProductDetails = () => {
     precision: 0.5,
   };
 
+  const handleCart = () => {
+    if (!isAuthenticated) {
+      navigate("/login");
+    } else dispatch(fetchAddCart(id));
+  };
+
   return (
     <div>
       <div className="container">
@@ -57,15 +69,13 @@ const ProductDetails = () => {
               <div className="preview col-md-6">
                 <div className="preview-pic tab-content">
                   <Carousel>
-                    {product.images &&
-                      product.images.map((item, i) => (
-                        <img
-                          className="CarouselImage"
-                          key={i}
-                          src={item.url}
-                          alt={`${i} Slide`}
-                        />
-                      ))}
+                    {product.image && (
+                      <img
+                        className="CarouselImage"
+                        src={`http://localhost:8000/Images/${product.image.data}`}
+                        alt={`Slide`}
+                      />
+                    )}
                   </Carousel>
                 </div>
                 <ul className="preview-thumbnail nav nav-tabs">
@@ -144,6 +154,7 @@ const ProductDetails = () => {
                   <button
                     className="add-to-cart btn btn-default "
                     type="button"
+                    onClick={handleCart}
                   >
                     add to cart
                   </button>
