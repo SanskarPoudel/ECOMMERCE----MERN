@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import {
   AiFillFacebook,
   AiFillTwitterSquare,
@@ -9,7 +9,7 @@ import {
   AiOutlineLogout,
 } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { fetchLogOut } from "../../slices/AuthSlice";
 import "./Header.css";
 
@@ -21,6 +21,16 @@ const Header = () => {
   const dispatch = useDispatch();
   const handleLogout = () => {
     dispatch(fetchLogOut());
+  };
+
+  const searchRef = useRef();
+
+  const navigate = useNavigate();
+
+  const handleSearch = () => {
+    const searchval = searchRef.current.value;
+    console.log(searchval);
+    navigate(`/products/${searchval}`);
   };
 
   return (
@@ -133,12 +143,18 @@ const Header = () => {
                   </Link>
                 </li> */}
               </ul>
-              <form className="d-flex" role="search" searchForm>
+              <form
+                className="d-flex"
+                role="search"
+                searchForm
+                onSubmit={handleSearch}
+              >
                 <input
                   className="form-control me-2"
                   type="search"
                   placeholder="Search"
                   aria-label="Search"
+                  ref={searchRef}
                 />
                 <button className="btn btn-success" type="submit">
                   Search
