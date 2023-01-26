@@ -28,7 +28,7 @@ module.exports.createOrder = catchAsyncErrors(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
-    order,
+    message: "Order placed successfully",
   });
 });
 

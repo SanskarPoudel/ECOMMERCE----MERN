@@ -20,7 +20,6 @@ const orderSchema = new mongoose.Schema({
     },
     pinCode: {
       type: Number,
-      required: true,
     },
     phoneNo: {
       type: Number,
@@ -42,10 +41,7 @@ const orderSchema = new mongoose.Schema({
         type: Number,
         required: true,
       },
-      image: {
-        type: String,
-        required: true,
-      },
+
       product: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Product",
@@ -61,14 +57,8 @@ const orderSchema = new mongoose.Schema({
   },
 
   paymentInfo: {
-    id: {
-      type: String,
-      required: true,
-    },
-    status: {
-      type: String,
-      required: true,
-    },
+    type: String,
+    required: true,
   },
 
   paidAt: {
