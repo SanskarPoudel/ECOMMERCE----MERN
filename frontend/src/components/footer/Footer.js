@@ -11,6 +11,7 @@ import {
   AiFillRedEnvelope,
   AiFillTwitterSquare,
 } from "react-icons/ai";
+import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
@@ -28,24 +29,24 @@ export default function Footer() {
               <span>Get connected with us on social networks:</span>
             </div>
             <div>
-              <a href className="text-white me-4">
+              <Link to="" className="text-white me-4">
                 <AiFillFacebook color="f9a825" size={24} />
-              </a>
-              <a href className="text-white me-4">
+              </Link>
+              <Link to="" className="text-white me-4">
                 <AiFillTwitterSquare color="f9a825" size={24} />
-              </a>
-              <a href className="text-white me-4">
+              </Link>
+              <Link to="" className="text-white me-4">
                 <AiFillGoogleSquare color="f9a825" size={24} />
-              </a>
-              <a href className="text-white me-4">
+              </Link>
+              <Link to="" className="text-white me-4">
                 <AiFillInstagram color="f9a825" size={24} />
-              </a>
-              <a href className="text-white me-4">
+              </Link>
+              <Link to="" className="text-white me-4">
                 <AiFillLinkedin color="f9a825" size={24} />
-              </a>
-              <a href className="text-white me-4">
+              </Link>
+              <Link to="" className="text-white me-4">
                 <AiFillGithub color="f9a825" size={24} />
-              </a>
+              </Link>
             </div>
           </section>
           <section className="text-white">
@@ -82,24 +83,24 @@ export default function Footer() {
                     }}
                   />
                   <p>
-                    <a href="#!" className="text-white">
+                    <Link to="#!" className="text-white">
                       Product Page
-                    </a>
+                    </Link>
                   </p>
                   <p>
-                    <a href="#!" className="text-white">
+                    <Link to="#!" className="text-white">
                       Categories
-                    </a>
+                    </Link>
                   </p>
                   <p>
-                    <a href="#!" className="text-white">
+                    <Link to="#!" className="text-white">
                       Product Queries
-                    </a>
+                    </Link>
                   </p>
                   <p>
-                    <a href="#!" className="text-white">
+                    <Link to="#!" className="text-white">
                       Product search
-                    </a>
+                    </Link>
                   </p>
                 </div>
                 <div className="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
@@ -116,24 +117,24 @@ export default function Footer() {
                     }}
                   />
                   <p>
-                    <a href="#!" className="text-white">
+                    <Link to="#!" className="text-white">
                       Your Account
-                    </a>
+                    </Link>
                   </p>
                   <p>
-                    <a href="#!" className="text-white">
+                    <Link to="#!" className="text-white">
                       Become an Affiliate
-                    </a>
+                    </Link>
                   </p>
                   <p>
-                    <a href="#!" className="text-white">
+                    <Link to="#!" className="text-white">
                       Shipping Rates
-                    </a>
+                    </Link>
                   </p>
                   <p>
-                    <a href="#!" className="text-white">
+                    <Link to="#!" className="text-white">
                       Help
-                    </a>
+                    </Link>
                   </p>
                 </div>
                 <div className="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">

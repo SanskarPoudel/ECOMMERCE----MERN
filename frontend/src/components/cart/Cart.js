@@ -66,7 +66,10 @@ const Cart = () => {
                       </thead>
                       <tbody>
                         {cartItems.length === 0 && (
-                          <div class="alert alert-warning mt-2" role="alert">
+                          <div
+                            className="alert alert-warning mt-2"
+                            role="alert"
+                          >
                             There are no Products in your cart !
                           </div>
                         )}
@@ -121,7 +124,7 @@ const Cart = () => {
                       </tbody>
                       {cartItems.length >= 1 && (
                         <Link
-                          to="/"
+                          to="/checkout"
                           className="btn btn-dark rounded-pill py-2 btn-block mt-4 "
                         >
                           Procceed to checkout

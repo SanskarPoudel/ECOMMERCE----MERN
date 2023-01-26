@@ -60,7 +60,6 @@ const LoginSignup = () => {
     event.preventDefault();
     dispatch(fetchLogin(loginInfo));
 
-    console.log(loginInfo);
     setLoginEmail("");
     setLoginPassword("");
   };
@@ -118,7 +117,9 @@ const LoginSignup = () => {
                 <Link to="/password/forgot">Forgot Password ?</Link>
                 <input type="submit" value="Login" className="loginBtn" />
                 <Link to="/">
-                  <span>Login as a guest ?</span>
+                  <h4 className="text-primary text-decoration-underline  ">
+                    Go to Home
+                  </h4>
                 </Link>
               </form>
 

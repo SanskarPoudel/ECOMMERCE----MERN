@@ -39,7 +39,6 @@ const productSlice = createSlice({
     builder.addCase(fetchProducts.fulfilled, (state, action) => {
       state.loading = false;
       state.products = action.payload.products;
-      console.log(action.payload);
       state.productCount = action.payload.productCount;
       state.resultPerPage = action.payload.resultPerPage;
     });

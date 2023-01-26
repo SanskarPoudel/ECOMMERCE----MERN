@@ -122,23 +122,23 @@ const ProductDetails = () => {
                 </h4>
                 <p className="font-weight-bold mb-0 qty">Quantity</p>
                 <div
-                  class="btn-group w-25 mb-3"
+                  className="btn-group w-25 mb-3"
                   role="group"
                   aria-label="Basic example"
                 >
                   <button
                     type="button"
-                    class="btn btn-primary"
+                    className="btn btn-primary"
                     onClick={decreaseQuantity}
                   >
                     -
                   </button>
-                  <button type="button" class="btn">
+                  <button type="button" className="btn">
                     {quantity}
                   </button>
                   <button
                     type="button"
-                    class="btn btn-secondary"
+                    className="btn btn-secondary"
                     onClick={increaseQuantity}
                   >
                     +

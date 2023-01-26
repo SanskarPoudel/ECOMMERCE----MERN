@@ -168,12 +168,7 @@ const Header = () => {
                   </Link>
                 </li> */}
               </ul>
-              <form
-                className="d-flex"
-                role="search"
-                searchForm
-                onSubmit={handleSearch}
-              >
+              <form className="d-flex" role="search" onSubmit={handleSearch}>
                 <input
                   className="form-control me-2"
                   type="search"
@@ -195,7 +190,7 @@ const Header = () => {
                 <Link to="0">
                   <AiOutlineHeart />
                 </Link>
-                <Link to="0">
+                <Link to="/me">
                   <AiOutlineUser />
                 </Link>
                 {isAuthenticated && (
