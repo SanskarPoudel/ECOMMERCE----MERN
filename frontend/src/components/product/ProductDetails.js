@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import Carousel from "react-material-ui-carousel";
 import { Rating } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,12 +7,15 @@ import { fetchProductDetail } from "../../slices/ProductDetailSlice";
 import { useNavigate, useParams } from "react-router-dom";
 import "./ProductDetails.css";
 import { AiFillHeart } from "react-icons/ai";
-import { fetchAddCart } from "../../slices/CartSlice";
+import { fetchAddCart, fetchGetCart } from "../../slices/CartSlice";
+import "react-toastify/dist/ReactToastify.css";
 
 const ProductDetails = () => {
   const { loading, productDetail, error } = useSelector(
     (state) => state.productDetail
   );
+
+  const { messageCart, errorCart } = useSelector((state) => state.cart);
 
   const { isAuthenticated, user } = useSelector((state) => state.userAuth);
 
@@ -54,14 +57,40 @@ const ProductDetails = () => {
     precision: 0.5,
   };
 
+  const cartDetails = {
+    productId: id,
+    quantity: quantity,
+  };
   const handleCart = () => {
     if (!isAuthenticated) {
       navigate("/login");
-    } else dispatch(fetchAddCart(id));
+    } else {
+      dispatch(fetchAddCart(cartDetails));
+    }
   };
+
+  useEffect(() => {
+    if (errorCart) {
+      toast.error(errorCart);
+    } else if (messageCart === "Product added to cart") {
+      toast.success(messageCart);
+    }
+  }, [errorCart, messageCart]);
 
   return (
     <div>
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
+
       <div className="container">
         <div className="card">
           <div className="container-fliud">
@@ -78,33 +107,6 @@ const ProductDetails = () => {
                     )}
                   </Carousel>
                 </div>
-                <ul className="preview-thumbnail nav nav-tabs">
-                  <li className="active">
-                    <a data-target="#pic-1" data-toggle="tab">
-                      <img src="http://placekitten.com/200/126" />
-                    </a>
-                  </li>
-                  <li>
-                    <a data-target="#pic-2" data-toggle="tab">
-                      <img src="http://placekitten.com/200/126" />
-                    </a>
-                  </li>
-                  <li>
-                    <a data-target="#pic-3" data-toggle="tab">
-                      <img src="http://placekitten.com/200/126" />
-                    </a>
-                  </li>
-                  <li>
-                    <a data-target="#pic-4" data-toggle="tab">
-                      <img src="http://placekitten.com/200/126" />
-                    </a>
-                  </li>
-                  <li>
-                    <a data-target="#pic-5" data-toggle="tab">
-                      <img src="http://placekitten.com/200/126" />
-                    </a>
-                  </li>
-                </ul>
               </div>
               <div className="details col-md-6">
                 <h3 className="product-title">{product.name}</h3>
@@ -291,17 +293,6 @@ const ProductDetails = () => {
                 </div>
               </div>
             </div>
-            <ToastContainer
-              position="bottom-center"
-              autoClose={5000}
-              hideProgressBar={false}
-              newestOnTop={false}
-              closeOnClick
-              rtl={false}
-              pauseOnFocusLoss
-              draggable
-              pauseOnHover
-            />
           </div>
         </div>
       </div>

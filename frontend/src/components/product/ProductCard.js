@@ -7,7 +7,6 @@ const ProductCard = ({ product }) => {
     readOnly: true,
     precision: 0.5,
   };
-  console.log(product);
   return (
     <>
       <Link className="ProductCard" to={`/product/${product._id}`}>

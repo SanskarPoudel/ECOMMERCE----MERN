@@ -8,22 +8,18 @@ import ProductCard from "./ProductCard";
 import "./Products.css";
 const Products = () => {
   const dispatch = useDispatch();
-
-  const categories = [
-    "Laptops",
-    "Tshirt",
-    "Pant",
-    "Kitchen utensils",
-    "Musical Instruments",
-    "Mobile Phones",
-  ];
+  const { products, loading, error, productCount, resultPerPage } = useSelector(
+    (state) => state.product
+  );
+  const categoryyy = products.map((product) => {
+    return product.category;
+  });
+  const categories = categoryyy;
   const [currentPage, setCurrentPage] = useState(1);
 
   const [category, setCategory] = useState("");
 
-  const { products, loading, error, productCount, resultPerPage } = useSelector(
-    (state) => state.product
-  );
+  console.log(categoryyy);
 
   const { keyword } = useParams();
 

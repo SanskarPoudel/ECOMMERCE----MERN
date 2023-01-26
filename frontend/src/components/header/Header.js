@@ -19,6 +19,8 @@ const Header = () => {
     (state) => state.userAuth
   );
 
+  const { cartItems } = useSelector((state) => state.cart);
+
   const dispatch = useDispatch();
   const handleLogout = () => {
     dispatch(fetchLogOut());
@@ -184,8 +186,11 @@ const Header = () => {
                 </button>
               </form>
               <div className="rightSide">
-                <Link to="0">
+                <Link to="/cart">
                   <AiOutlineShoppingCart />
+                  {isAuthenticated && (
+                    <span className="badge p-1">{cartItems.length}</span>
+                  )}
                 </Link>
                 <Link to="0">
                   <AiOutlineHeart />

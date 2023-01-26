@@ -18,12 +18,8 @@ const Home = ({ history }) => {
   }, []);
 
   const products = product.products;
-  console.log(products);
   return (
     <div>
-      {/* <Header /> */}
-      {/* Carousel */}
-
       <div id="carouselExampleCaptions" className="carousel slide">
         <div className="carousel-indicators">
           <button

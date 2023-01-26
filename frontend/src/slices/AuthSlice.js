@@ -52,7 +52,7 @@ const authSlice = createSlice({
     });
     builder.addCase(fetchLogin.fulfilled, (state, action) => {
       state.loading = false;
-      state.user = action.payload;
+      state.user = action.payload.user;
       state.isAuthenticated = true;
     });
     builder.addCase(fetchLogin.rejected, (state, action) => {
@@ -65,7 +65,7 @@ const authSlice = createSlice({
     });
     builder.addCase(fetchSignup.fulfilled, (state, action) => {
       state.loading = false;
-      state.user = action.payload;
+      state.user = action.payload.user;
       state.isAuthenticated = true;
     });
     builder.addCase(fetchSignup.rejected, (state, action) => {

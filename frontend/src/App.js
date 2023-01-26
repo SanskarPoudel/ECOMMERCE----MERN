@@ -13,6 +13,10 @@ import { fetchUserDetails } from "./slices/UserSlice";
 import { authenticatedStatusUpdate } from "./slices/AuthSlice";
 import Products from "./components/product/Products";
 import Support from "./more/Support";
+import Cart from "./components/cart/Cart";
+import { fetchGetCart } from "./slices/CartSlice";
+import Checkout from "./components/checkout/Checkout";
+import ProtectedRoutes from "./protectedRoutes/ProtectedRoutes";
 
 function App() {
   const dispatch = useDispatch();
@@ -28,6 +32,7 @@ function App() {
 
   useEffect(() => {
     userDetails.name && dispatch(authenticatedStatusUpdate());
+    dispatch(fetchGetCart());
   }, [userDetails]);
 
   return (
@@ -42,6 +47,10 @@ function App() {
           <Route path="/products" element={<Products />} />
           <Route path="/products/:keyword" element={<Products />} />
           <Route path="/support" element={<Support />} />
+          <Route element={<ProtectedRoutes allowedRole="user" />}>
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/checkout" element={<Checkout />} />
+          </Route>
         </Routes>
         <Footer />
       </Router>
