@@ -28,7 +28,6 @@ module.exports.createUser = catchAsyncError(async (req, res, next) => {
 module.exports.loginUser = catchAsyncError(async (req, res, next) => {
   const { email, password } = req.body;
 
-  console.log(password);
   if (!email || !password) {
     return next(new ErrorHandler("Please enter email and password", 400));
   }
@@ -40,8 +39,6 @@ module.exports.loginUser = catchAsyncError(async (req, res, next) => {
   }
 
   const passCheck = await bcrypt.compare(password, user.password);
-
-  console.log(passCheck);
 
   if (!passCheck) {
     return next(new ErrorHandler("Invalid email or password", 400));
@@ -140,8 +137,7 @@ module.exports.userDetails = catchAsyncError(async (req, res, next) => {
 //UPDATE USER PASSWORD
 module.exports.updatePassword = catchAsyncError(async (req, res, next) => {
   const user = await User.findById(req.body.id).select("+password");
-  console.log(req.body.id);
-  console.log(user.password);
+
   const passCheck = await bcrypt.compare(req.body.oldPassword, user.password);
 
   if (!passCheck) {
@@ -251,15 +247,20 @@ module.exports.addtoCart = catchAsyncError(async (req, res) => {
 
   const product = await Product.findById(req.body.productId);
 
-  console.log(product);
-  if (user.cart.includes(product._id)) {
+  const isProductInCart = user.cart.find(
+    (cartItem) => cartItem.product.toString() === product._id.toString()
+  );
+  if (isProductInCart) {
     return res.status(400).json({
       message: "Product is already in cart",
     });
   }
 
-  user.cart.push(product._id);
-  console.log(user.cart);
+  user.cart.push({
+    product: product._id,
+    quantity: req.body.quantity,
+  });
+
   await user.save();
   res.status(200).json({
     message: "Product added to cart",
@@ -269,10 +270,9 @@ module.exports.addtoCart = catchAsyncError(async (req, res) => {
 //GET CART
 module.exports.getCart = catchAsyncError(async (req, res, next) => {
   const user = await User.findById(req.user._id)
-    .populate("cart")
+    .populate("cart.product")
     .select("cart");
 
-  console.log(user);
   if (!user) {
     return next(new ErrorHandler("User not found", 400));
   }
@@ -285,16 +285,23 @@ module.exports.getCart = catchAsyncError(async (req, res, next) => {
 //REMOVE PRODUCT FROM CART
 module.exports.removeFromCart = catchAsyncError(async (req, res, next) => {
   const user = await User.findById(req.user._id);
+  const product = await Product.findById(req.params.productId);
 
-  const productIndex = user.cart.indexOf(req.params.productId);
-
-  if (productIndex === -1) {
-    return next(new ErrorHandler("Product not found in cart", 400));
+  const isProductInCart = user.cart.find(
+    (cartItem) => cartItem.product.toString() === product._id.toString()
+  );
+  if (!isProductInCart) {
+    return res.status(400).json({
+      message: "Product not found in cart",
+    });
   }
 
-  user.cart.splice(productIndex, 1);
-  await user.save();
+  const updatedCart = user.cart.filter(
+    (cartItem) => cartItem.product.toString() !== product._id.toString()
+  );
 
+  user.cart = updatedCart;
+  await user.save();
   res.status(200).json({
     message: "Product removed from cart",
   });
