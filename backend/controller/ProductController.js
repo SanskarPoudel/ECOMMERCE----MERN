@@ -37,7 +37,7 @@ module.exports.createProduct = catchAsyncErrors(async (req, res, next) => {
   });
   res.status(200).json({
     success: "true",
-    product,
+    message: "Product Created Successfully",
   });
 });
 
