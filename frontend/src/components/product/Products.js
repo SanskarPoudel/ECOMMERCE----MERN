@@ -1,7 +1,7 @@
 import { Pagination, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Loading from "../../more/Loader";
 import { fetchProducts } from "../../slices/ProductSlice";
 import ProductCard from "./ProductCard";
@@ -95,9 +95,17 @@ const Products = () => {
                 <Typography style={{ fontSize: "1.2vmax", padding: "5px" }}>
                   QUICK LINKS
                 </Typography>
-                <li className="category-link">My Carts</li>
-                <li className="category-link">Favourites Items</li>
-                <li className="category-link">Go to Checkout</li>
+                <Link to="/cart">
+                  <li className="category-link">My Carts</li>
+                </Link>
+
+                <Link to="/favourite">
+                  {" "}
+                  <li className="category-link">Favourites Items</li>
+                </Link>
+                <Link to="/checkout">
+                  <li className="category-link">Go to Checkout</li>
+                </Link>
               </div>
 
               {products.length === 0 ? (

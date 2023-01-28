@@ -19,6 +19,11 @@ import Checkout from "./components/checkout/Checkout";
 import ProtectedRoutes from "./protectedRoutes/ProtectedRoutes";
 import Dashboard from "./components/admin/Dashboard";
 import Profile from "./components/account/Profile";
+import Sidebar from "./components/admin/Sidebar";
+import AdminPanel from "./components/admin/AdminPanel";
+import HeaderFooterWrapper from "./more/wrapper/HeaderFooterWrapper";
+import AdminWrapper from "./more/wrapper/AdminWrapper";
+import CreateProduct from "./components/admin/CreateProduct";
 
 function App() {
   const dispatch = useDispatch();
@@ -46,23 +51,32 @@ function App() {
   return (
     <>
       <Router>
-        <Header />
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/product/:id" element={<ProductDetails />} />
-          <Route path="/login" element={<LoginSignup />} />
-          <Route path="/header1" element={<Header1 />} />
-          <Route path="/products" element={<Products />} />
-          <Route path="/products/:keyword" element={<Products />} />
-          <Route path="/support" element={<Support />} />
-          <Route element={<ProtectedRoutes allowedRole="user" />}>
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/me" element={<Profile />} />
-            <Route path="/checkout" element={<Checkout />} />
+          <Route path="/" element={<HeaderFooterWrapper />}>
+            <Route index element={<Home />} />
+            <Route path="/product/:id" element={<ProductDetails />} />
+            <Route path="/login" element={<LoginSignup />} />
+            <Route path="/header1" element={<Header1 />} />
+            <Route path="/products" element={<Products />} />
+            <Route path="/products/:keyword" element={<Products />} />
+            <Route path="/support" element={<Support />} />
+            <Route path="/admin" element={<AdminPanel />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+
+            <Route element={<ProtectedRoutes allowedRole="user" />}>
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/me" element={<Profile />} />
+              <Route path="/checkout" element={<Checkout />} />
+            </Route>
           </Route>
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route element={<ProtectedRoutes allowedRole="admin" />}>
+            <Route path="/admin" element={<AdminWrapper />}>
+              <Route index element={<AdminPanel />} />
+              <Route path="/admin/dashboard" element={<Dashboard />} />
+              <Route path="/admin/createproduct" element={<CreateProduct />} />
+            </Route>
+          </Route>
         </Routes>
-        <Footer />
       </Router>
     </>
   );

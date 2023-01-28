@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Navigate, useNavigate } from "react-router";
 import { ToastContainer, toast } from "react-toastify";
 import { clearCart, fetchRemoveFromCart } from "../../slices/CartSlice";
-import { fetchCreateOrder } from "../../slices/OrderSlice";
+import { clearOrderMessage, fetchCreateOrder } from "../../slices/OrderSlice";
 import "./Checkout.css";
 const Checkout = () => {
   const { loadingCart, messageCart, cartItems, errorCart } = useSelector(
@@ -54,10 +54,8 @@ const Checkout = () => {
     };
 
     dispatch(fetchCreateOrder(orderDetails));
+    navigate("/");
   };
-  useEffect(() => {
-    toast.success(message);
-  }, [message, dispatch]);
 
   return (
     <div>

@@ -49,6 +49,12 @@ const cartSlice = createSlice({
     clearCart: (state) => {
       state.cartItems = [];
     },
+    clearMessage: (state) => {
+      state.messageCart = "";
+    },
+    clearError: (state) => {
+      state.errorCart = "";
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchAddCart.pending, (state) => {
@@ -89,5 +95,5 @@ const cartSlice = createSlice({
   },
 });
 
-export const { clearCart } = cartSlice.actions;
+export const { clearCart, clearMessage, clearError } = cartSlice.actions;
 export default cartSlice.reducer;

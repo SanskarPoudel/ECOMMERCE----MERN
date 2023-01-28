@@ -7,7 +7,12 @@ import { fetchProductDetail } from "../../slices/ProductDetailSlice";
 import { useNavigate, useParams } from "react-router-dom";
 import "./ProductDetails.css";
 import { AiFillHeart } from "react-icons/ai";
-import { fetchAddCart, fetchGetCart } from "../../slices/CartSlice";
+import {
+  clearError,
+  clearMessage,
+  fetchAddCart,
+  fetchGetCart,
+} from "../../slices/CartSlice";
 import "react-toastify/dist/ReactToastify.css";
 
 const ProductDetails = () => {
@@ -72,10 +77,12 @@ const ProductDetails = () => {
   useEffect(() => {
     if (errorCart) {
       toast.error(errorCart);
+      dispatch(clearError());
     } else if (messageCart === "Product added to cart") {
       toast.success(messageCart);
+      dispatch(clearMessage());
     }
-  }, [errorCart, messageCart]);
+  }, [dispatch, errorCart, messageCart]);
 
   return (
     <div>

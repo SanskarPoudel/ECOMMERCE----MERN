@@ -13,6 +13,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { fetchLogOut } from "../../slices/AuthSlice";
 import "./Header.css";
 import logo from "../../assets/logo.png";
+import { Button } from "@mui/material";
 
 const Header = () => {
   const { loading, isAuthenticated, user, error } = useSelector(
@@ -52,6 +53,11 @@ const Header = () => {
                 {isAuthenticated ? (
                   <div className="top-right-text">
                     Welcome to Our Shop.. Happy Shopping{" "}
+                    {user.role.includes("admin") && (
+                      <Link to="/admin">
+                        <Button>ADMIN PANEL</Button>
+                      </Link>
+                    )}
                   </div>
                 ) : (
                   <>
