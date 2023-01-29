@@ -19,11 +19,10 @@ import Checkout from "./components/checkout/Checkout";
 import ProtectedRoutes from "./protectedRoutes/ProtectedRoutes";
 import Dashboard from "./components/admin/Dashboard";
 import Profile from "./components/account/Profile";
-import Sidebar from "./components/admin/Sidebar";
-import AdminPanel from "./components/admin/AdminPanel";
 import HeaderFooterWrapper from "./more/wrapper/HeaderFooterWrapper";
 import AdminWrapper from "./more/wrapper/AdminWrapper";
 import CreateProduct from "./components/admin/CreateProduct";
+import ProductsAdmin from "./components/admin/ProductsAdmin";
 
 function App() {
   const dispatch = useDispatch();
@@ -60,7 +59,6 @@ function App() {
             <Route path="/products" element={<Products />} />
             <Route path="/products/:keyword" element={<Products />} />
             <Route path="/support" element={<Support />} />
-            <Route path="/admin" element={<AdminPanel />} />
             <Route path="/dashboard" element={<Dashboard />} />
 
             <Route element={<ProtectedRoutes allowedRole="user" />}>
@@ -71,9 +69,10 @@ function App() {
           </Route>
           <Route element={<ProtectedRoutes allowedRole="admin" />}>
             <Route path="/admin" element={<AdminWrapper />}>
-              <Route index element={<AdminPanel />} />
+              <Route index element={<Dashboard />} />
               <Route path="/admin/dashboard" element={<Dashboard />} />
               <Route path="/admin/createproduct" element={<CreateProduct />} />
+              <Route path="/admin/products" element={<ProductsAdmin />} />
             </Route>
           </Route>
         </Routes>

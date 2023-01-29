@@ -11,7 +11,7 @@ const Cart = () => {
   const { loadingCart, messageCart, cartItems, errorCart } = useSelector(
     (state) => state.cart
   );
-
+  console.log(cartItems);
   useEffect(() => {
     dispatch(fetchGetCart());
   }, [dispatch, cartItems]);
@@ -75,50 +75,52 @@ const Cart = () => {
                         )}
                         {cartItems.map((cartItem) => {
                           return (
-                            <tr>
-                              <th scope="row" className="border-0">
-                                <Link to={`/product/${cartItem.product._id}`}>
-                                  <div className="p-2">
-                                    <img
-                                      src={`http://localhost:8000/Images/${cartItem.product.image.data}`}
-                                      alt=""
-                                      width={70}
-                                      className="img-fluid rounded shadow-sm"
-                                    />
-                                    <div className="mx-3 d-inline-block align-middle">
-                                      <h5 className="mb-0">
-                                        {" "}
-                                        <a
-                                          href="0"
-                                          className="text-dark d-inline-block align-middle"
-                                        >
-                                          {cartItem.product.name}
-                                        </a>
-                                      </h5>
-                                      <span className="text-muted font-weight-normal font-italic d-block">
-                                        Category: {cartItem.product.category}
-                                      </span>
+                            cartItem.product && (
+                              <tr>
+                                <th scope="row" className="border-0">
+                                  <Link to={`/product/${cartItem.product._id}`}>
+                                    <div className="p-2">
+                                      <img
+                                        src={`http://localhost:8000/Images/${cartItem.product.image.data}`}
+                                        alt=""
+                                        width={70}
+                                        className="img-fluid rounded shadow-sm"
+                                      />
+                                      <div className="mx-3 d-inline-block align-middle">
+                                        <h5 className="mb-0">
+                                          {" "}
+                                          <a
+                                            href="0"
+                                            className="text-dark d-inline-block align-middle"
+                                          >
+                                            {cartItem.product.name}
+                                          </a>
+                                        </h5>
+                                        <span className="text-muted font-weight-normal font-italic d-block">
+                                          Category: {cartItem.product.category}
+                                        </span>
+                                      </div>
                                     </div>
+                                  </Link>
+                                </th>
+                                <td className="border-0 align-middle">
+                                  <strong>${cartItem.product.price}</strong>
+                                </td>
+                                <td className="border-0 align-middle">
+                                  <strong>{cartItem.quantity}</strong>
+                                </td>
+                                <td className="border-0 align-middle">
+                                  <div
+                                    className="text-dark removeCart"
+                                    onClick={() =>
+                                      handleRemove(cartItem.product._id)
+                                    }
+                                  >
+                                    <BsFillTrashFill />
                                   </div>
-                                </Link>
-                              </th>
-                              <td className="border-0 align-middle">
-                                <strong>${cartItem.product.price}</strong>
-                              </td>
-                              <td className="border-0 align-middle">
-                                <strong>{cartItem.quantity}</strong>
-                              </td>
-                              <td className="border-0 align-middle">
-                                <div
-                                  className="text-dark removeCart"
-                                  onClick={() =>
-                                    handleRemove(cartItem.product._id)
-                                  }
-                                >
-                                  <BsFillTrashFill />
-                                </div>
-                              </td>
-                            </tr>
+                                </td>
+                              </tr>
+                            )
                           );
                         })}
                       </tbody>

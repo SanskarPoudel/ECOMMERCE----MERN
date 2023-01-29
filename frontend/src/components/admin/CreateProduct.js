@@ -52,6 +52,12 @@ const CreateProduct = () => {
     formData.append("image", imageRef.current.files[0]);
 
     dispatch(fetchCreateProduct(formData));
+    nameRef.current.value = "";
+    priceRef.current.value = "";
+    descriptionRef.current.value = "";
+    categoryRef.current.value = "";
+    stockRef.current.value = "";
+    imageRef.current.files[0] = "";
   };
 
   useEffect(() => {

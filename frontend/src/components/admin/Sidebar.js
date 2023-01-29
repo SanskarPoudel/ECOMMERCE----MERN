@@ -1,9 +1,10 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import "./Sidebar.css";
 export default function Sidebar() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
-  const [darkMode, setDarkMode] = useState(false);
+  const { userDetails } = useSelector((state) => state.user);
 
   const handleToggle = () => {
     setSidebarOpen((prevSidebarOpen) => {
@@ -18,7 +19,10 @@ export default function Sidebar() {
             <span className="image">{/*<img src="logo.png" alt="">*/}</span>
             <div className="text logo-text">
               <span className="name">Admin Panel</span>
-              <span className="profession">Sanskar Paudel</span>
+              <span className="profession">
+                {userDetails.name.charAt(0).toUpperCase() +
+                  userDetails.name.slice(1)}
+              </span>
             </div>
           </div>
           <i className="bx bx-chevron-right toggle" onClick={handleToggle} />

@@ -23,15 +23,15 @@ const Checkout = () => {
 
   let itemsPrice = 0;
   cartItems.forEach((item) => {
-    itemsPrice += item.product.price * item.quantity;
+    item.product && (itemsPrice += item.product.price * item.quantity);
   });
 
   const orderItems = cartItems.map((item) => {
     return {
-      name: item.product.name,
-      price: item.product.price,
-      quantity: item.quantity,
-      product: item.product._id,
+      name: item.product && item.product.name,
+      price: item.product && item.product.price,
+      quantity: item.product && item.quantity,
+      product: item.product && item.product._id,
     };
   });
 
@@ -85,17 +85,19 @@ const Checkout = () => {
             <ul className="list-group mb-3 sticky-top">
               {cartItems.map((cartItem) => {
                 return (
-                  <li className="list-group-item d-flex justify-content-between lh-condensed">
-                    <div>
-                      <h6 className="my-0">{cartItem.product.name}</h6>
-                      <small className="text-muted">
-                        {cartItem.product.category}
-                      </small>
-                    </div>
-                    <span className="text-muted">
-                      ${cartItem.product.price}
-                    </span>
-                  </li>
+                  cartItem.product && (
+                    <li className="list-group-item d-flex justify-content-between lh-condensed">
+                      <div>
+                        <h6 className="my-0">{cartItem.product.name}</h6>
+                        <small className="text-muted">
+                          {cartItem.product.category}
+                        </small>
+                      </div>
+                      <span className="text-muted">
+                        ${cartItem.product.price}
+                      </span>
+                    </li>
+                  )
                 );
               })}
 

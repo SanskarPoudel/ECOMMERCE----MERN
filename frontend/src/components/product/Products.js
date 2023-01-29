@@ -11,9 +11,13 @@ const Products = () => {
   const { products, loading, error, productCount, resultPerPage } = useSelector(
     (state) => state.product
   );
-  const categoryyy = products.map((product) => {
-    return product.category;
-  });
+  const categoryyy = [
+    "Laptops",
+    "Mens Fashion",
+    "Womens Fashion",
+    "Mobile Phones",
+    "Kitchen Utensils",
+  ];
   const categories = categoryyy;
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -31,6 +35,10 @@ const Products = () => {
     category,
     keyword,
     currentPage,
+  };
+
+  const handleAllProduct = () => {
+    dispatch(fetchProducts({ category: "", keyword: "", currentPage }));
   };
 
   useEffect(() => {
@@ -80,6 +88,14 @@ const Products = () => {
                   CHOOSE CATEGORIES
                 </Typography>
                 <ul className="categoryBox">
+                  <li
+                    type="checkbox"
+                    className="category-link"
+                    onClick={handleAllProduct}
+                  >
+                    ALL PRODUCTS
+                  </li>
+
                   {categories.map((categoryy) => (
                     <li
                       className="category-link"
