@@ -64,6 +64,18 @@ module.exports.getAllProducts = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
+//GET ALL PRODUCT --ADMIN
+module.exports.getAllProductsAdmin = catchAsyncErrors(
+  async (req, res, next) => {
+    const products = await Product.find();
+
+    res.status(200).json({
+      success: true,
+      products,
+    });
+  }
+);
+
 // UPDATE PRODUCT ---ADMIN
 module.exports.updateProduct = async (req, res, next) => {
   let product;

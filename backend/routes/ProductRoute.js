@@ -9,6 +9,7 @@ const {
   getSingleProduct,
   createProductReview,
   createReview,
+  getAllProductsAdmin,
 } = require("../controller/ProductController");
 
 const { isAuthenticatedUser, authorizeRoles } = require("../middleware/auth");
@@ -35,6 +36,13 @@ const upload = multer({
 router.get("/products", getAllProducts);
 
 router.get("/products/:id", getSingleProduct);
+
+router.get(
+  "/admin/products",
+  isAuthenticatedUser,
+  authorizeRoles("admin"),
+  getAllProductsAdmin
+);
 
 router.post(
   "/products/new",
