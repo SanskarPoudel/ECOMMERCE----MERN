@@ -3,30 +3,21 @@ import Box from "@mui/material/Box";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { DataGrid } from "@mui/x-data-grid";
-import {
-  clearMessageProductAdmin,
-  fetchAllProductsAdmin,
-  fetchDeleteProduct,
-} from "../../slices/admin/AllProductsSlice";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import "./ProductsAdmin.css";
+import "./Users.css";
 import { Link } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
-export default function ProductsAdmin() {
+import { fetchAllUsersAdmin } from "../../slices/admin/AllProductsSlice";
+export default function Users() {
   const dispatch = useDispatch();
 
-  const { allProductsLoading, adminProducts, messageProductAdmin, error } =
-    useSelector((state) => state.allProductsAdmin);
-
-  const handleDelete = (id) => {
-    dispatch(fetchDeleteProduct(id));
-  };
+  const { allUsers } = useSelector((state) => state.allProductsAdmin);
 
   const columns = [
     {
       field: "id",
-      headerName: "Product ID",
+      headerName: "User ID",
       width: 250,
     },
     {
@@ -35,14 +26,14 @@ export default function ProductsAdmin() {
       width: 220,
     },
     {
-      field: "price",
-      headerName: "Price",
-      width: 100,
+      field: "email",
+      headerName: "Email",
+      width: 300,
     },
     {
-      field: "stock",
-      headerName: "Stock",
-      width: 100,
+      field: "role",
+      headerName: "Role",
+      width: 150,
     },
     {
       field: "actions",
@@ -51,16 +42,11 @@ export default function ProductsAdmin() {
       renderCell: (params) => {
         return (
           <>
-            <Link
-              to={`/edit/product/${params.getValue(params.id, "id")}`}
-              className="editIcon"
-            >
+            <Link className="editIcon">
               {" "}
               <EditIcon />
             </Link>
-            <Button
-              onClick={() => handleDelete(params.getValue(params.id, "id"))}
-            >
+            <Button>
               <DeleteIcon />
             </Button>
           </>
@@ -70,21 +56,18 @@ export default function ProductsAdmin() {
   ];
 
   useEffect(() => {
-    dispatch(fetchAllProductsAdmin());
-    messageProductAdmin &&
-      toast.success(messageProductAdmin) &&
-      dispatch(clearMessageProductAdmin());
-  }, [dispatch, messageProductAdmin]);
+    dispatch(fetchAllUsersAdmin());
+  }, []);
 
   const rows = [];
 
-  adminProducts &&
-    adminProducts.forEach((item) => {
+  allUsers &&
+    allUsers.forEach((item) => {
       rows.push({
         id: item._id,
         name: item.name,
-        price: `$${item.price}`,
-        stock: item.stock,
+        email: item.email,
+        role: item.role,
       });
     });
 

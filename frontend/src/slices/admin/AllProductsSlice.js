@@ -6,6 +6,9 @@ const initialState = {
   adminProducts: [],
   messageProductAdmin: "",
   error: "",
+  allUsers: [],
+  usersLoading: false,
+  usersError: "",
 };
 
 export const fetchAllProductsAdmin = createAsyncThunk(
@@ -24,6 +27,17 @@ export const fetchDeleteProduct = createAsyncThunk(
   (id) => {
     return axios
       .delete(`http://localhost:8000/api/v1/products/${id}`, {
+        withCredentials: true,
+      })
+      .then((response) => response.data);
+  }
+);
+
+export const fetchAllUsersAdmin = createAsyncThunk(
+  "allProductsAdmin/fetchAllUsersAdmin",
+  () => {
+    return axios
+      .get(`http://localhost:8000/api/v1/admin/users`, {
         withCredentials: true,
       })
       .then((response) => response.data);
@@ -61,6 +75,18 @@ const AllProductsSlice = createSlice({
     builder.addCase(fetchDeleteProduct.rejected, (state, action) => {
       state.allProductsLoading = false;
       state.error = action.payload;
+    });
+
+    builder.addCase(fetchAllUsersAdmin.pending, (state) => {
+      state.usersLoading = true;
+    });
+    builder.addCase(fetchAllUsersAdmin.fulfilled, (state, action) => {
+      state.usersLoading = false;
+      state.allUsers = action.payload.users;
+    });
+    builder.addCase(fetchAllUsersAdmin.rejected, (state, action) => {
+      state.usersLoading = false;
+      state.usersError = action.payload;
     });
   },
 });

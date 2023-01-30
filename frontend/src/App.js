@@ -23,6 +23,7 @@ import HeaderFooterWrapper from "./more/wrapper/HeaderFooterWrapper";
 import AdminWrapper from "./more/wrapper/AdminWrapper";
 import CreateProduct from "./components/admin/CreateProduct";
 import ProductsAdmin from "./components/admin/ProductsAdmin";
+import Users from "./components/admin/Users";
 
 function App() {
   const dispatch = useDispatch();
@@ -73,6 +74,7 @@ function App() {
               <Route path="/admin/dashboard" element={<Dashboard />} />
               <Route path="/admin/createproduct" element={<CreateProduct />} />
               <Route path="/admin/products" element={<ProductsAdmin />} />
+              <Route path="/admin/users" element={<Users />} />
             </Route>
           </Route>
         </Routes>

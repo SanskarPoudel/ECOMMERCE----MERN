@@ -7,6 +7,7 @@ import cartReducer from "./slices/CartSlice";
 import orderReducer from "./slices/OrderSlice";
 import createProductReducer from "./slices/admin/CreateProductSlice";
 import allProductReducer from "./slices/admin/AllProductsSlice";
+import adminOrdersReducer from "./slices/admin/AllOrdersSlice";
 
 export const store = configureStore({
   reducer: {
@@ -18,5 +19,6 @@ export const store = configureStore({
     order: orderReducer,
     createProduct: createProductReducer,
     allProductsAdmin: allProductReducer,
+    adminOrders: adminOrdersReducer,
   },
 });
