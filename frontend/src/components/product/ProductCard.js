@@ -9,7 +9,10 @@ const ProductCard = ({ product }) => {
   };
   return (
     <>
-      <Link className="ProductCard" to={`/product/${product._id}`}>
+      <Link
+        className="ProductCard shadow bg-white rounded"
+        to={`/product/${product._id}`}
+      >
         {product.image && (
           <img
             src={`http://localhost:8000/Images/${product.image.data}`}

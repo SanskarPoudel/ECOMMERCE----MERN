@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "../../slices/ProductSlice";
 import ProductCard from "../product/ProductCard";
+import { Link } from "react-router-dom";
 
 const Home = ({ history }) => {
   const product = useSelector((state) => state.product);
@@ -138,7 +139,7 @@ const Home = ({ history }) => {
           </h2>
         </div>
         <div>
-          <a href="#containerHome">
+          <Link to="/products">
             <button
               type="submit"
               style={{
@@ -155,7 +156,7 @@ const Home = ({ history }) => {
             >
               SHOP NOW
             </button>
-          </a>
+          </Link>
         </div>
       </div>
 

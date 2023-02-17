@@ -24,6 +24,7 @@ import AdminWrapper from "./more/wrapper/AdminWrapper";
 import CreateProduct from "./components/admin/CreateProduct";
 import ProductsAdmin from "./components/admin/ProductsAdmin";
 import Users from "./components/admin/Users";
+import Orders from "./components/admin/Orders";
 
 function App() {
   const dispatch = useDispatch();
@@ -75,6 +76,7 @@ function App() {
               <Route path="/admin/createproduct" element={<CreateProduct />} />
               <Route path="/admin/products" element={<ProductsAdmin />} />
               <Route path="/admin/users" element={<Users />} />
+              <Route path="/admin/orders" element={<Orders />} />
             </Route>
           </Route>
         </Routes>

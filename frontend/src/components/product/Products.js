@@ -17,6 +17,7 @@ const Products = () => {
     "Womens Fashion",
     "Mobile Phones",
     "Kitchen Utensils",
+    "Musical Instruments",
   ];
   const categories = categoryyy;
   const [currentPage, setCurrentPage] = useState(1);

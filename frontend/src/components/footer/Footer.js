@@ -83,12 +83,12 @@ export default function Footer() {
                     }}
                   />
                   <p>
-                    <Link to="#!" className="text-white">
+                    <Link to="/products" className="text-white">
                       Product Page
                     </Link>
                   </p>
                   <p>
-                    <Link to="#!" className="text-white">
+                    <Link to="/products" className="text-white">
                       Categories
                     </Link>
                   </p>
@@ -117,7 +117,7 @@ export default function Footer() {
                     }}
                   />
                   <p>
-                    <Link to="#!" className="text-white">
+                    <Link to="/me" className="text-white">
                       Your Account
                     </Link>
                   </p>
